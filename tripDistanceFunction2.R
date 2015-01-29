@@ -3,8 +3,8 @@
 ## Title: Calculate Total Trip Distance
 ## Creator: Christopher Risi
 ## Create Date: January, 16th, 2015
-## Modifier: 
-## Modified Date: 
+## Modifier:
+## Modified Date:
 ## Version 0.1
 
 #################################
@@ -28,27 +28,25 @@ tripDistance2 <-function(driverNumber, trips.df)
     distance <- data.frame(trip=1:length(tripNumbers), driver=driverNumber, dist=0)
     for(i in 1:length(tripNumbers))
       {
-        tripCoordinates <- trips.df[trips.df$trip==tripNumbers[i],1:2] 
-        
+        tripCoordinates <- trips.df[trips.df$trip==tripNumbers[i],1:2]
+
         xDist <- diff(tripCoordinates[,1], lag=1)
         yDist <- diff(tripCoordinates[,2], lag=1)
-        
+
         xDist <- xDist^2
         yDist <- yDist^2
-        
+
         eucDist <- xDist + yDist
-        
+
         eucDist <- sqrt(eucDist)
-        
+
         distance[i,3] <- sum(eucDist)
-        
+
         xDist <- 0
         yDist <- 0
         eucDist <- 0
       }
-    
+
     return(distance)
   }
-
-#distance[i,3] <- distance[i,3] + sqrt(((tripCoordinates[j,1]-tripCoordinates[j-1,1])^2)+((tripCoordinates[j,2]-tripCoordinates[j-1,2])^2))
 
