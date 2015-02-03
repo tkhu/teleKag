@@ -25,7 +25,7 @@ tripDistance2 <-function(driverNumber, trips.df)
   {
     tripNumbers <- unique(trips.df$trip)
     tripNumbers <- as.numeric(tripNumbers)
-    distance <- data.frame(trip=1:length(tripNumbers), driver=driverNumber, dist=0)
+    distance <- data.frame(trip=tripNumbers, driver=driverNumber, dist=0)
     for(i in 1:length(tripNumbers))
       {
         tripCoordinates <- trips.df[trips.df$trip==tripNumbers[i],1:2]
