@@ -45,7 +45,7 @@ tripDvrCharacter <-function(driverNumber, trips.df)
         Acceleration.Meter.Sec.Sec <- diff(Speed.Meter.Sec, lag=1)
         Acceleration.Meter.Sec.Sec <- c(0, Acceleration.Meter.Sec.Sec)
 
-        TripDriverCharacteristics[j:(j+length(tripCoordinates[,1])-1),1] <- i
+        TripDriverCharacteristics[j:(j+length(tripCoordinates[,1])-1),1] <- tripNumbers[i]
         TripDriverCharacteristics[j:(j+length(tripCoordinates[,1])-1),2] <- tripCoordinates[,1]
         TripDriverCharacteristics[j:(j+length(tripCoordinates[,1])-1),3] <- tripCoordinates[,2]
         TripDriverCharacteristics[j:(j+length(tripCoordinates[,1])-1),4] <- xSpeed
