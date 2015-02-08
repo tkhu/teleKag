@@ -1,0 +1,57 @@
+# Project: AXA Kaggle Trip Driver Predicition
+## Fuction: PlotVelocity
+## Title: Plot graphs for a specific trip for a specific driver
+## Creator: Christopher Risi
+## Create Date: January, 23rd, 2015
+## Modifier: Kevin Hu
+## Modified Date: Februray, 2, 2015
+## Version 0.1
+
+plotVelocity <-function(driverNumber, tripNumber, trips.df)
+{
+ 
+  tripCoordinates <- subset(trips.df,trip==tripNumber)[1:2] 
+  
+  xSpeed <- c(0,diff(tripCoordinates[,1], lag=1))
+  ySpeed <- c(0,diff(tripCoordinates[,2], lag=1))
+  
+  xSqr <- xSpeed^2
+  ySqr <- ySpeed^2
+  
+  eucDist <- xSqr + ySqr
+  eucDist <- sqrt(eucDist)
+  
+  Speed.Meter.Sec <- eucDist
+    
+  plot(seq_along(Speed.Meter.Sec), Speed.Meter.Sec, ylab="Velocity", xlab="Time (in seconds)", main="Speed of the Vehicle Per Second")
+}
+
+# Project: AXA Kaggle Trip Driver Predicition
+## Fuction: PlotVelocity
+## Title: Plot graphs for a specific trip for a specific driver
+## Creator: Christopher Risi
+## Create Date: January, 23rd, 2015
+## Modifier: Kevin Hu
+## Modified Date: Februray, 2, 2015
+## Version 0.1
+
+plotAccerelation <-function(driverNumber, tripNumber, trips.df)
+{
+  
+  tripCoordinates <- subset(trips.df,trip==tripNumber)[1:2] 
+  
+  xSpeed <- c(0,diff(tripCoordinates[,1], lag=1))
+  ySpeed <- c(0,diff(tripCoordinates[,2], lag=1))
+  
+  xSqr <- xSpeed^2
+  ySqr <- ySpeed^2
+  
+  eucDist <- xSqr + ySqr
+  eucDist <- sqrt(eucDist)
+  
+  Speed.Meter.Sec <- eucDist
+  
+  acceleration <- diff(Speed.Meter.Sec, lag=1)
+  
+  plot(seq_along(acceleration), acceleration, ylab="Accerelation", xlab="Time (in seconds)", main="Accerelation of the Vehicle Per Second")
+}
