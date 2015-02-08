@@ -1,0 +1,52 @@
+# Project: AXA Kaggle Trip Driver Predicition
+## Fuction: tripSummary
+## Title: Driver's Trip Summary
+## Creator: Christopher Risi
+## Create Date: January, 16th, 2015
+## Modifier: Kevin Hu
+## Modified Date: February, 7th, 2015
+## Version 0.2
+
+
+#################################
+##############NOTES##############
+#################################
+###This function calculates total distance, average speed and average accerelation
+###for all of the trips that a driver made.
+###Ex: tripSummary(1,read_trips(1)) will return 200 rows of summarized data
+###    since driver 1 has made 200 trips.
+
+tripSummary <-function(driverNumber, trips.df)
+{
+  tripNumbers <- unique(trips.df$trip)
+  tripNumbers <- as.numeric(tripNumbers) #First two lines find how many trips each driver makes
+  distance <- data.frame(trip=tripNumbers, driver=driverNumber, time=0, dist=0, avgspeed=0, avgacc=0) #Create data frame
+  
+  for(i in 1:length(tripNumbers))
+  {
+    #Finding the distance of each points using Euclidean Theoream-------------------------------------
+    tripCoordinates <- trips.df[trips.df$trip==tripNumbers[i],1:2] #Get the coordinates from i-th trip
+    
+    xDist <- diff(tripCoordinates[,1], lag=1)
+    yDist <- diff(tripCoordinates[,2], lag=1)
+    
+    xDist <- xDist^2
+    yDist <- yDist^2
+    
+    eucDist <- xDist + yDist
+    
+    eucDist <- sqrt(eucDist) #This is a vector containing distances between each second.
+    #-------------------------------------------------------------------------------------------------
+  
+    distance[i,3] <- nrow(subset(trips.df, trip==i)) #Insert column 3 with the length of trip in second
+    distance[i,4] <- sum(eucDist) #Insert column 4 with total distance of each trip
+    distance[i,5] <- mean(eucDist) #Insert column 5 with average speed/second of each trip
+    distance[i,6] <- mean(diff(eucDist,lag=1))#Insert column 6 with average acceleration/second^2 of each trip
+    
+    xDist <- 0
+    yDist <- 0
+    eucDist <- 0
+  }
+  
+  return(distance)
+}
